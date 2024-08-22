@@ -1,0 +1,18 @@
+<div *ngIf="tasks.length === 0">No tasks available.</div>
+<div *ngFor="let task of tasks | pipes:'Incomplete'">
+    <div [appHighlight]="task.dueDate" appHover>
+    <h3>{{ task.title }}</h3>
+    <p>Description: {{ task.description }}</p>
+    <p>Due Date: {{ task.dueDate }}</p>
+    <p>Status: {{ task.status }}</p>
+    <p>Priority: {{ task.priority }}</p>
+    <button (click)="editTask(task)">Edit</button>
+    <div>
+        <app-task *ngIf="selectedTask && selectedTask.id === task.id" 
+                  [task]="selectedTask" 
+                  (save)="updateTasks($event)"
+                  (cancel) = "cancel_update()">
+        </app-task>
+    </div>
+    </div>
+</div>
